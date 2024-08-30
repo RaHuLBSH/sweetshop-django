@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<style>
+    body{
+        background-image: url("{% static 'images/bgmain.jpeg' %}");
+    }
+    a{
+        text-decoration: none;
+    }
+    #planner1,#calender1,#notes1,#journal1,#ceramic1,#combos1,#candles1,#wb1{
+        position: absolute;
+        left:0px;
+        border: 1px solid black;
+        border-radius: 20px;
+        width:330px;
+        text-align: center;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 15px;
+        text-decoration: none;
+        background-image: linear-gradient(rgb(6, 233, 70),rgb(109, 59, 59));
+        color: white;
+    }
+    #planner1{
+        top:15px;
+    }
+    
+    #calender1{
+        top:80px;
+    }
+    
+    #notes1{
+        top:145px;
+    }
+    
+    #journal1{
+        top:210px;
+    }
+    
+    #ceramic1{
+        top:275px;
+    }
+    
+    #combos1{
+        top:340px;
+    }
+    
+    #candles1{
+        top:405px;
+    }
+    
+    #wb1{
+        top:470px;
+    }
+    .img{
+        border:1px solid black;
+        border-radius: 10px;
+    }
+</style>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert("{{ message }}");</script>
+        {% endfor %}
+    {% endif %}
+    <div id="head">
+        <a href="{%url 'home' %}" id="home"><img src="{% static 'images/homeicon.png'%}" id="home-img"></a>
+        <a href="{%url 'user' %}" id='hello'>Hello {{ user }}</a>
+        <a href="{% url 'myorders' %}" id="myorder">My Order</a>
+        <a href="{%url 'goto_cw' cw='c'%}" id="cart">Cart</a>
+        <a href="{%url 'goto_cw' cw='w'%}" id="wishlist">Wishlist</a>
+        <a href="{%url 'addmoney'%}" id="money"><span id="mon">{{ money }}</span><img src="{% static 'images/rupee.png' %}" id="rupee"></a>
+    </div>
+    <div id="sidepanel">
+        <a href="/homepage/Gujarat" id="planner1">Gujarat</a>
+        <a href="/homepage/Kerala" id="calender1">Kerala</a>
+        <a href="/homepage/Karnataka" id="notes1">Karnataka</a>
+        <a href="/homepage/Maharashtra" id="journal1">Maharashtra</a>
+        <a href="/homepage/Madhya Pradesh" id="ceramic1">Madhya Pradesh</a>
+        <a href="/homepage/Rajasthan" id="combos1">Rajasthan</a>
+        <a href="/homepage/Uttar Pradesh" id="candles1">Uttar Pradesh</a>
+        <a href="/homepage/West Bengal" id="wb1">West Bengal</a>
+    </div>
+    <h2 id="h2"><a href="/homepage/{{state}}/info">{{state|upper}}</a></h2>
+    <div id="products">
+        {% if products %}
+            {% for product,a in products %}
+                <div class="case">
+                    <img src="{{product.img.url}}" class="img">
+                    <p><center>{{ product.p_name }} {{ product.rate }}Rs<br>
+                        <form method="POST" action="{%url 'add_cw' pname=product.p_name%}">
+                            {% csrf_token %}
+                        Quantity<input type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" value="<">
+                        <input type="number" id="num" value="1" min="1" name="num">
+                        <input type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" value=">"><br>
+                        <input type="submit" value="+Add to Cart" id="addcart"><br></form><a id="addwish" href="{%url 'add_cw' pname=product.p_name%}">{{ a }}</a></center></p>
+                </div>
+            {% endfor %}
+        {% else %}
+        No products found
+        {% endif %}
+    </div>
+</body>
+</html>

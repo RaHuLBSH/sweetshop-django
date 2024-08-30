@@ -1,0 +1,471 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: cursive;
+        margin: 0;
+        padding: 0;
+        background-image: url("{% static 'images/bgmain.jpeg' %}");
+        font-style: italic;
+    }
+    
+    .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .item {
+            width: 50%;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .item:nth-child(even) {
+           text-align: justify;
+        }
+
+        .item:nth-child(odd) {
+            text-align: justify;
+        }
+
+    h1 {
+        color: #3ef094;
+        font-size: 40px;
+        text-align: center;
+    }
+    
+    img {
+        width:300px;
+        height: 300px;
+        display: block;
+        margin: 0 auto;
+        border:2px solid black;
+        border-radius: 10px;
+    }
+    
+    p {
+        margin: 20px;
+        font-size: 16px;
+        color: #555;
+        background-color: rgb(199, 248, 199);
+    }
+    #feed{
+        position: relative;
+        top:80px;
+        text-align: center;
+    }
+    #senti{
+        position: relative;
+        bottom:-50px;
+        text-align: center;
+    }
+    input[type=text],select{
+        width:300px;
+        height:50px;
+        border:1px solid black;
+        text-align: center;
+        border-radius:10px;
+    }
+    select{
+        width:600px;
+        height: 70px;
+        font-size: 20px;
+    }
+    input[type=submit]{
+        width:100px;
+        height: 40px;
+        border:1px solid black;
+        text-align: center;
+        border-radius:15px;
+    }
+    #message{
+        position: relative;
+        top:70px;
+        text-align: center;
+        color: green;
+        width: 600px;
+        height:40px;
+        left:300px;
+    }
+    #head{
+        position: relative;
+        top:10px;
+        font-style: normal;
+        z-index: 1;
+    }
+    #blog{
+        position: relative;
+        top:80px;
+    }
+    #home-img{
+        border-radius: 0px;
+    }
+    #rupee1{
+        border: none;
+        position: relative;
+        right:-42px;
+        top:-25px;
+        width:30px;
+        height:30px;
+    }
+</style>
+<link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<body>
+    <div id="head">
+        <a href="{%url 'home' %}" id="home" style="background-color: rgb(114, 64, 252);"><img src="{% static 'images/homeicon.png'%}" id="home-img"></a>
+        <a href="{%url 'user' %}" id='hello'>Hello {{ user }}</a>
+        <a href="{% url 'myorders' %}" id="myorder">My Order</a>
+        <a href="{%url 'goto_cw' cw='c'%}" id="cart">Cart</a>
+        <a href="{%url 'goto_cw' cw='w'%}" id="wishlist">Wishlist</a>
+        <a href="{%url 'addmoney'%}" id="money"><span id="mon1">{{ money }}</span><img src="{% static 'images/rupee.png' %}" id="rupee1"></a>
+      </div>
+    {% if messages %}
+        {% for message in messages %}
+        <div id="message">{{message}}</div>
+            <script>
+                setTimeout(function(){
+                    document.getElementById("message").style.display='none';
+                },3000);
+            </script>
+        {% endfor %}
+    {% endif %}
+    <form id="feed" action="{% url 'add_blogreview' state=state %}" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Enter your experience with this blog" name="feed"><br>
+        <input type="submit" value="Send"><br><br>
+    </form>
+    <div id="blog">
+    {% if state == "Gujarat" %}
+    <h1>Gujarat</h1>
+    <div class="container">
+    <div class="item">
+    <img id="magaj" src="{%static 'images/magaj.webp' %}">
+    <p><b>Magaj</b> or magas is a traditional Indian sweet originating from Gujarat, where it’s often made for Diwali or weddings. Apart from the three basic ingredients – chickpea flour, sugar, and ghee, the dessert also contains cardamom, nutmeg, and nuts such as almonds and pistachios.
+    
+    The chickpea flour is fried in ghee over very low heat until golden and aromatic. Once it cools down, it’s mixed with powdered sugar, nutmeg, and cardamom. The mixture is spooned into a greased tray, sprinkled with nuts, and left to set overnight. </p>
+    </div>
+    
+    <div class="item">
+    <p><b>Sutarfeni</b> is a sweet Indian treat consisting of rice flour that is roasted in ghee and combined with melted sugar to develop a structure similar to cotton candy. The sweet is usually flavored with cardamom and topped with nuts such as almonds and pistachios.
+    
+    Its texture is described in the name - sutar means thread, and feni means fine. Since making sutarfeni is a laborious job that can strecth for up to three days, it is not recommended to make it at home. It is said that sutarfeni was invented in the deserts of Rajasthan and Gujarat, from where it spread to Mumbai via travelling merchants.</p>
+    <img id="sutar" src="{%static 'images/sutarfeni.jpg'%}">
+</div>
+    
+    <div class="item">
+    <img id="sukhdi" src="{%static 'images/sukhdi.jpg'%}">
+    <p><b>Sukhdi</b> is a traditional Indian sweet originating from Gujarat. It’s made with a simple combination of jaggery, ghee, and whole wheat flour, also known as atta. In Maharashtra, this sweet is known as gur papdi or gol papdi. In order to prepare the sweet, the ghee is melted and wheat flour is added to the pan.
+    
+    The combination is cooked for a few minutes until it browns. The heat is then turned off and jaggery is added to the mix. Once cooled, sukhdi is cut into squares or diamonds, then served. If properly prepared, the texture should be soft, crumbly, and melting on the tongue. </p>
+    </div>
+    
+    <div class="item">
+    <p><b>Doodhpak</b> is a specialty of Gujarati and Parsi cuisines, consisting of milk, rice, and sugar. It is typically flavored with spices such as cardamom, nutmeg, or saffron, and a variety of dry fruit and nuts such as almonds, pistachios, cashews, or charoli (also known as chironji).
+    
+    In India, this traditional creamy dessert is usually prepared for special occasions and festivals, and it is typically enjoyed with warm puris (fried puffed bread) or pakora (crispy-fried Indian snacks) on the side.</p>
+    <img id="doodhpak" src="{%static 'images/doodhpak.webp'%}">
+</div>
+    
+    <div class="item">
+    <img id="mohanthal" src="{%static 'images/mohnthal.jpg'%}">
+    <p><b>Mohanthal</b> is a festive Indian dessert made by sautéing gram flour, ghee, and milk in a pan until the combination becomes golden and fragrant, then covering the mixture with hot sugar syrup before finishing it with chopped nuts such as pistachios and almonds on top.
+    
+    After setting in a greased tray, the resulting fudge-like dessert is sliced into desired shapes before serving. Mohanthal is usually infused with aromatic spices such as cardamom powder, saffron, and, sometimes, rose essence, and it is an indispensable mithai (Indian sweet) on festivals such as Diwali and Janmashtmi. </p>
+    </div>
+    
+    <div class="item">
+    <p><b>Chikki</b> is a sweet snack that is most commonly made with jaggery and groundnuts. Groundnut chikki is extremely popular in India as it is full of protein and iron, making it a healthy snack. Traditionally, peanuts are used in the preparation of chikki, but cashews, almonds, and walnuts can also be used.
+    
+    There are also variations with added dried fruits such as apricots and raisins. Although chikki is popular throughout the country, it originated in the Gujarat area. In 1888, when the railway line was being constructed, the workers needed something healthy and flavorful to eat, so Mr. Maganlal, India's oldest chikki maker, invented this tasty snack.</p>
+    <img id="chikki" src="{%static 'images/chikki.jpg'%}"></div>
+    
+    <div class="item">
+    <img id="kaju" src="{%static 'images/kkatli.jpeg'%}">
+    <p><b>Kaju Katli</b> also known as kaju barfi is a sweet dessert. Milk and sugar are used for making it. Some people use saffron to give it a different taste. The real taste of cashew nuts makes it a delicious sweet. It is specially made during wedding occasions.</p>
+    </div>
+    
+    <div class="item">
+    <p><b>Shakkrpara</b> is an addictive sweet snack that is often made at the time of Diwali. It is easy to prepare, and some people make this dish throughout the year. There are different ways of making this dish. It can last longer as it does not contain milk.</p>
+    <img id="shakkar" src="{%static 'images/shakkrpara.jpg'%}">
+</div>
+    
+    <div class="item">
+    <img id="ghugra" src="{%static 'images/ghugra.jpeg'%}">
+    <p><b>Ghugra</b> is a traditional Gujarati sweet dish, and is also known as gujhia. It is a fried dessert and contains the filling of coconut and dry fruits. It is made during the festive season. People make this dish on Holi.  It is a favorite tea time snack.</p>
+    </div>
+
+    <div class="item">
+    <p><b>Faada Lapsi</b> is a dessert famous in the state of Gujarat. People make it during the festive season. Many people also make this dish when they shift to a newly built house or during wedding ceremonies. It is an amazing combination of broken wheat and cardamom. Some people add milk whereas others add water and sugar.</p>
+    <img id="faada" src="{%static 'images/lapsi.jpeg'%}">
+</div></div>
+    {% endif %}
+
+    {% if state == "Kerala" %}
+    <h1>Kerala</h1>
+    <div class="container">
+    <div class="item">
+        <img src="{%static 'images/paladap.jpeg'%}">
+    <p>One of the common Kerala sweets, <b>Palada Payasam</b> is a staple for households in the state. Made with boiling the crunchy vermicelli and rice in milk to the soft stage and flavored with cardamom, sugar, and butter. To add to the taste and texture, this delicious dessert is garnished with raisins and cashew nuts. This sweet can be found as a part of the Onam special meal.
+    </p></div>
+
+<div class="item">
+<p><b>Neyyappam</b> is one of the most loved sweets of Kerala. When on a culinary journey in Kerala, Neyyappam should definitely be on the list of Kerala sweets and snacks that one wants to try. Fried in ghee, this sweet and jaggery stuffed pancake not only fulfills the stomach but also fulfills the cravings of people. Neyyappam is typically made from rice flour, coconut, cardamom, milk, ghee, and then stuffed with a mixture of jaggery. This delicacy is served as a tea time snack.
+</p><img src="{%static 'images/neyapm.jpeg'%}"></div>
+
+<div class="item">
+    <img src="{%static 'images/elannerp.jpeg'%}">
+<p><b>Elaneer Pudding</b> is one of the most exotic dishes when it comes to Kerala sweets images. Something similar to a pannacotta, hero of this sweet is nothing but lots of coconuts! Set with gelatin or agar-agar, Elaneer Pudding is extremely refreshing and especially enjoyed under the hot sun. Prepared with condensed milk, coconut, sugar, milk, agar-agar, and essence this sweet has a perfect balance of sweetness making it one of the delicious Kerala sweets.
+</p></div>
+
+<div class="item">
+<p>A dessert made of only three basic ingredients- egg, sugar, and water, <b>Mutta Mala</b> is another Ramadan popular dish in Kerala. Made by pouring the egg yolk through a small hole into boiling sugar water so that the yolks resemble strings, this sweet is not to be missed when travelling to Kerala during the holidays.
+A garland made of eggs is what Mutta Maala literally translates to. It is a dessert made of eggs and and yolks are separated, cooked into individual sweets only to be consumed together later. Yolks are 
+
+cooked into thin strands in sugar syrup, while the egg whites are steamed and form the base of the dish. This sweet ensemble is a Malabar classic and makes its appearance during Iftar and other celebration.
+</p>   <img src="{%static 'images/muttamala.jpeg'%}"></div>
+
+<div class="item">
+    <img src="{%static 'images/cladoo.jpeg'%}">
+<p>Kerala is a land of coconut trees. Coconut is added in different forms to almost every dish, then how can something as popular as laddoo be spared? <b>Coconut Laddoo</b> is highly famous throughout the country and when it mixed with mawa, the taste becomes heavenly. Mawa also becomes a good substitute for sugar.
+</p></div>
+
+<div class="item">
+<p>A combination of lasagna and pie in appearance, this tempting delicacy is layered with sheets of pastry dough and filled with savoury or sweet fillings. Consumed widely during the festival of Ramadan at the time breaking the fast, <b>Chatti Pathiri</b> is a popular Malabari dish. Alternate layers of pastry sheets and sweet custard filling, topped with sesame seeds make Chatti Pathiri rank amongst the top ten Kerala sweets.
+</p><img src="{%static 'images/chatti pathiri.jpeg'%}"></div>
+
+<div class="item">
+    <img src="{%static 'images/cocopitha.jpeg'%}">
+<p>Made with jaggery, cardamom, and the very famous ingredient of Kerala named Mawa aka khoya, <b>Coconut Pitha</b> is a great dish to try in the city as well as carry it back home as a souvenir for friends and family back home. This dessert has a filling that is made up of raisins and cashew nuts. It is perhaps among the yummiest desserts that you can try out after your meals in the state of Kerala.
+</p></div></div>
+
+ {% endif %}
+
+    {% if state == "Karnataka" %}
+    <h1>Karnataka</h1>
+    <div class="container">
+        <div class="item">
+    <img src="{%static 'images/mysorepak.jpeg'%}">
+   <p> The most popular South Indian sweet,<b>Mysore Pak</b> is made out of chickpea flour, sugar and abundant quantities of ghee.
+
+Famous for its sweetness and known for its unmatched richness, it comes in two forms – crumble with pores or smooth and dense.
+ is a treasured delight that is synonymous with the royal city of Mysore, known for its heavenly taste and the melt-in-your-mouth texture that brings pure bliss with every bite. When it comes to the best Karnataka sweets, Mysore Pak undoubtedly stands out as an iconic and irresistibly delicious delicacy.
+
+Mysore Pak is known for its two distinct types. The first type is a soft and melt-in-your-mouth version, prepared by blending generous amounts of ghee, sugar, and gram flour to create a dense and luscious confection that effortlessly dissolves on the tongue, leaving a delightful and lingering taste.
+
+The second type is the hard Mysore Pak, which has a firmer texture and a crumbly consistency, offering a delightful bite that gradually dissolves into a rich and sweet experience. Both variations of Mysore Pak have their own unique charm and are equally loved by sweet enthusiasts.
+   </p>   </div>
+
+
+<div class="item">
+<p><b>Kunda</b> is a sweet delicacy having its origin in Belgaum City. It is made of milk, khoa and sugar. The milk is boiled extensively till it becomes concrete. Apart from Belgaum, it is also popular in cities like Hubli, Dharwad and Davangere
+Kunda, a heavenly milk-based sweet speciality from Belgaum, is born from the painstaking process of reducing milk to a grainy consistency, infusing it with the essence of dry fruits, resulting in a creamy and delectable treat that is truly divine.
+
+Kunda is one of the most famous Karnataka sweets, known for its irresistible creamy taste.</p>
+<img src="{%static 'images/belgavi kunda.jpeg'%}"></div>
+
+
+
+<div class="item">
+    <img src="{%static 'images/dharwad peda.jpeg'%}">
+<p>The <b>Dharwad peda</b> is round and grainy, with a veneer of castor sugar., a rich milk delicacy popular in the state of Karnataka. Dharwad Peda’s legacy goes back 175 years. It was originally started by the Thakur family, who migrated from Unnao in UP and made pedas. It has also been accorded with Geographical Indication Tag.
+Originating from the city of Dharwad, this special milk-based fudge is prepared by slow-cooking milk until it thickens, followed by the addition of sugar and flavours like cardamom. The result is a soft, creamy delicacy that delights with its sweet and slightly nutty flavour.
+
+Dharwad Pedha, one of the finest Karnataka sweets, is celebrated as the epitome of culinary excellence, renowned for its exceptional taste, velvety texture, and legacy that spans generations.
+</p></div>
+
+<div class="item">
+<p><b>Kesari Bath</b>, a vibrant and aromatic South Indian dessert, entices with its golden hues and the delicate flavours of saffron and cardamom, harmonizing semolina, ghee, and sugar into a sweet dish that awakens the senses.
+
+Kesari Bath, a classic South Indian sweet dish is a popular breakfast item available at all eateries in Karnataka that serve South Indian dishes. Another delightful variation, Pineapple Kesari Bath, incorporates the tangy sweetness of pineapple, adding a burst of tropical flavour to this delectable breakfast treat, enticing the taste buds of early morning diners.
+</p><img src="{%static 'images/kesaribath.jpg'%}"></div>
+
+<div class="item">
+    <img src="{%static 'images/kradantu.jpeg'%}">
+<p><b>Karadant</b>, a culinary gem from North Karnataka, combines the richness of dry fruits, jaggery, and edible gum, presenting a chewy delight that offers a burst of flavours and textures in every bite.
+</p></div>
+
+<div class="item">
+<p>Chiroti, a delicate and crispy pastry-like sweet, crafted with refined flour and ghee, is adorned with a sprinkling of powdered sugar, offering a symphony of textures and a perfect balance of sweetness that leaves a delightful crunch with every bite.
+
+Chiroti holds a significant place in traditional Karnataka weddings, where it is often served during the lunchtime feast. Serving Chiroti in marriages adds a touch of elegance and indulgence to the celebratory meal, making it a memorable part of the culinary experience
+</p><img src="{%static 'images/chiroti.jpeg'%}">
+</div></div>  {% endif %}
+
+    {% if state == "Maharashtra" %}
+    <h1>Maharashtra</h1>
+<div class="container">
+    <div class="item">
+<p><b>Chavde</b> is a crispy, deep-fried Indian dessert that's traditionally prepared during the festival of Ganesh Chaturthi. It consists of thinly-rolled, round-shaped dough and a fragrant mixture of roasted coconut, cardamom, sesame seeds, and sugar. The dough is fried until it becomes puffy and crispy, and while still warm, it's filled with the coconut mixture.
+
+The pastry is then folded and can sometimes be additionally sprinkled with the filling. This specialty is usually associated with the Konkani people and the states of Maharashtra and Karnataka.
+</p><img src="{%static 'images/chavde.jpg'%}"></div>
+
+<div class="item"><img src="{%static 'images/icehalwa.jpeg'%}"> <p>
+<b>Ice halwa</b> is an Indian dessert made with milk, starch or flour, and various flavorings and toppings. It comes in the form of thinly rolled square-shaped sheets. This dessert is traditionally associated with Mumbai. Typically, the main ingredients include milk, ghee, sugar, and cornstarch or sooji (semolina).
+
+When cooked and thickened, the mixture is rolled into a thin layer and is then garnished, typically with slivered almonds and pistachios. Thinly rolled sheets are then allowed to set and chill before they are cut into smaller pieces. This dessert is usually flavored with cardamom, and apart from the standard white version, it often includes saffron, which gives the dessert a vibrant yellow tint. 
+</p></div>
+
+<div class="item"><p><b>
+Karanji</b> is a crescent-shaped, deep-fried pastry that is mostly associated with Maharashtra. It consists of thinly rolled dough and a filling consisting of fresh or desiccated coconut, cardamom, and crushed nuts such as cashews, almonds, or pistachios.
+
+Sometimes it includes rava (semolina), poppy seeds, jaggery, and raisins. The dough is folded in a half-moon shape, and the pastries are then deep-fried until golden. Karanji is traditionally enjoyed for Diwali or Holi festivals. It is similar to the northern Indian gujiya, which can be baked or fried and typically does not include coconut.
+</p><img src="{%static 'images/karanji.jpg'%}"></div>
+
+
+<div class="item"><img src="{%static 'images/aamras.jpg'%}"><p><b>
+Aamras</b> is essentially puréed mango pulp that is typically eaten as a dessert. It is made with ripe and juicy mangos that are sliced or diced and blended into a creamy, sweet, and fragrant mixture. The finely puréed cream usually gains the sweetness from ripe mangos, but it can be additionally sweetened with jaggery or sugar.
+
+It is sometimes merely elevated with the addition of saffron, dry ginger, or cardamom, but its simplicity allows room for alteration and the creation of numerous varieties. Classic aamras is a typical summer dessert, but canned varieties are available all year round. 
+</p></div>
+
+
+<div class="item"><p><b>
+Basundi</b> is a popular Indian dessert consisting of sweetened, thickened milk with the addition of chopped nuts such as almonds, cashews, and pistachios. The dessert is usually flavored with cardamom and saffron. It is traditionally prepared during Indian festivals such as Diwali, Bhai Dooj, Raksha Bandhan, and Gudi Padwa.
+
+Sweet, flavorful, and creamy, basundi is often consumed at Indian weddings or during the fasting period. It is especially popular in Maharashtra, Gujarat, and Karnataka, and although its origin is not known, it has been consumed as a milk dessert for centuries in India. 
+</p><img src="{%static 'images/basundi.webp'%}"></div>
+
+
+
+<div class="item"><img src="{%static 'images/shrikhand.webp'%}"><p><b>
+Shrikhand</b> is a popular Indian yogurt-based dessert, combined with sugar and fruits in order to develop a rich, creamy texture and sweet flavor. In North India, it is usually served for breakfast, while in South India, it is commonly served as a dessert after the main dish.
+
+Shrikhand is also a festive dish that is made for Janmashtami (the birthday of Lord Krishna) in Maharashtra and Gujarat. There is a popular theory about the origin of shrikhand; it is said that the herdsmen used to hang curd or yogurt overnight so they could carry it more easily while traveling.
+</p></div>
+
+
+<div class="item"><p><b>
+Modak</b> is an Indian sweet dumpling believed to have originated in the state of Maharashtra. In India, modak is prepared in a variety of ways, and it is known under various names. Depending on the region, it is also referred to as mothagam or kozhukattai in Tamil, modhaka or kadubu in Kannada, or kudumu in Telugu.
+</p><img src="{%static 'images/modak.jpg'%}"></div>
+
+<div class="item"><img src="{%static 'images/puranpli.jpg'%}"><p><b>
+Puran Poli</b> is one of the most popular sweet dishes in Maharashtra. It is an Indian flatbread comprising of plain flour, jaggery stuffing along with chana dal( yellow gram), cardamom powder, nutmeg powder, sugar, and ghee. Puran Poli is a sweet flatbread, prepared for every celebration and is relished by the local. It is a must-have dish.
+
+The ingredients, preparation, and cooking methods also depend on regional differences. However, the most common variety is called ukadiche modak, the steamed variety made with rice flour and filled with a sweet concoction of grated coconut and jaggery.
+</p></div></div>
+{% endif %}
+
+    {% if state == "Madhya Pradesh" %}
+    <h1>Madhya Pradesh</h1>
+    <div class="container">
+        <div class="item"><p>
+    <b>Malpua</b> is the deliciously Indian version of pancakes, It is a chewy snack widely popular in the Central parts of India because of its Crispy Edges and Soft, fluffy insides which partner well with a number of its like Rabri, Cream, and Fresh Fruits. It is made of flour, khoya (milk solids), semolina, etc. It is deep-fried and then dunked in sugar syrup.
+         </p><img src="{%static 'images/malpu.jpeg'%}"></div>
+<div class="item"><img src="{%static 'images/boondi.jpeg'%}"><p><b>
+Boondi</b> are small deep-fried round balls made from besan (gram flour). They come in a sweet or savor version. The process of making boondi starts with a thick besan batter that is poured through a sieve and dropped directly into sizzling oil, creating small deep-fried droplets.
+
+If enjoyed as a dessert, these tiny, crispy balls are usually coated in sugary syrups or incorporated into popular boondi laddu balls. Savory versions are typically enjoyed as a snack and are often combined with yogurt-based raitas, curries, or sprinkled over salads. 
+</p></div>
+
+<div class="item"><p>
+A sweet and delicious dessert made using condensed milk,<b> Rabri</b> is made by slow cooking and thickening milk. The dessert is garnished with dry fruits and nuts. Sugar and spices are added to season the dish. Keep in mind that this is a very heavy and filling recipe and do make sure to leave ample space for this dessert.
+
+
+This dessert is somewhat similar to a funnel cake. It is prepared by deep-frying black gram flour batter in round flower-like shapes and then dousing in sugar syrup, while they’re still hot. It is dry on the outside and deliciously gooey on the inside. We recommend trying this sweet with hot or condensed milk.
+</p><img src="{%static 'images/rabdi.jpeg'%}"></div>
+<div class="item"><img src="{%static 'images/kalakand.jpeg'%}"><p>
+Originating in Alwar, one of the oldest kingdoms of Rajasthan, <b>Kalakand</b> are fudgy blocks made from a rich mixture of sweetened milk and paneer (soft Indian cottage cheese), topped with saffron and nuts. Soft both inside and outside, this delectable confection will satiate even the sweetest sweet tooth.
+ </p></div></div>   {% endif %}
+
+    {% if state == "Rajasthan" %}
+    <h1>Rajasthan</h1>
+    <div class="container">
+        <div class="item"><img src="{%static 'images/ghevar.jpeg'%}"><p><b>
+    Ghevar</b>--This traditional Rajasthani sweet delicacy is made with a batter of flour, ghee, and cold water that is carefully poured into piping hot oil or ghee to fry, yielding a round, disc-shaped dessert with an intricate pattern. After it has been deep-fried to perfection, the dessert is either covered with or immersed into sugar syrup, and it's typically garnished with thickened milk (rabri), silver flakes, and chopped nuts such as almonds or pistachios on top.
+
+Often dubbed the honeycomb dessert due to its distinctive appearance, ghevar is usually flavored with saffron and cardamom powder, and it can also be made with khoa (dried evaporated milk solids) or malai (milk cream) instead of water.
+</p></div>
+<div class="item"><p>
+Among the most appreciated Rajasthani desserts, <b>Churma Ladoo</b> are balls made from whole wheat flour, milk, jaggery, semolina, cardamom powder and poppy seeds. There are a range of customisations that can be made, such as adding coconut and sesame seeds, or using gram flour instead of wheat flour – either is delicious! You’ll discover delicious variations of the sweet across India.
+</p><img src="{%static 'images/cladoo.jpeg'%}"></div>
+
+
+ 
+<div class="item"><img src="{%static 'images/doodhiyak.jpeg'%}"><p><b>
+Doodhiya Kheech</b>--This decadent wheat and milk pudding originated in Udaipur, but is a favourite beyond the area. Made with hulled wheat, milk, saffron, sugar, dried fruits and nuts, Doodhiya Kheech has a delightfully subtle flavour, which will leave you craving for more. You’ll see Rajasthanis enjoying this dessert in large quantities during winters and Akha Teej or Akshaya Tritiya, an annual spring festival observed by Jains and Hindus.
+</p></div>
+<div class="item"><p><b>
+Moong Halwa</b>--This is the most comforting of Rajasthani desserts, made from soaked moong dal (split green gram skinless) and besan (gram flour), which are first simmered in milk, saffron and cardamom, then fried in ghee and sugar. Add nuts and dried fruits on the top and indulge in this glorious treat.
+ </p><img src="{%static 'images/moongdalh.jpeg'%}"></div></div>   {% endif %}
+
+    {% if state == "Uttar Pradesh" %}
+    <h1>Uttar Pradesh</h1>
+    <div class="container"><div class="item"><img src="{%static 'images/peda.jpeg'%}"><p><b>
+    Peda</b> is a sweet treat originating from the Indian state of Uttar Pradesh, although it is also very popular in Gujarat. It consists of khoa, sugar, and flavorings such as cardamom, pistachio, and saffron. The word peda refers to any kind of dough-like substance, such as khoa, the key ingredient used in the preparation of peda.
+
+The town of Mathura in Uttar Pradesh is known for peda as its main specialty. Pedas are typically served during festivals as an offering to gods, although they are enjoyed and consumed throughout the year. Today, pedas come in many different shapes and colors, while khoa is sometimes replaced with milk.
+</p></div>
+
+<div class="item"><p><b>
+Agra petha</b> is a type of candied gourd often called the signature candy of the city of Agra. It is made from candied ash gourd, known as white pumpkin, wax gourd, white gourd, winter gourd, tallow gourd, or ash pumpkin. The gourd is cut into chunks that are soaked in a lime solution and are then doused in flavored syrups, creating a sweet treat with a crunchy exterior and a chewy center.
+
+This local petha variety is available in various flavors, such as saffron, coconut, or chocolate. It can be bought at numerous shops and stalls that are dispersed throughout the city. Petha was allegedly created by the royal chefs during the construction of the grand Taj Mahal.
+ </p><img src="{%static 'images/pethagra.jpeg'%}"></div></div>   {% endif %}
+
+    {% if state == "West Bengal" %}
+    <h1>West Bengal</h1>
+    <div class="container">
+        <div class="item"><img src="{%static 'images/rasgulla.jpeg'%}"><p><b>
+    Rasgulla</b> is a traditional sweet that is usually served at the end of a meal, like many other Indian milk-based desserts. It is prepared from chhena paneer dumplings and semolina dough, cooked together in a sugary syrup. The origin of rasgulla is the subject of a heated debate, with West Bengal and Odisha both claiming to be the birthplace of the dessert.
+
+Bengalis claim that rasgulla was the byproduct of many culinary experiments in the state, while the people of Odisha claim that it was traditionally offered to Lord Jagannath for centuries. However, most food historians agree that the truth is somewhere in between. 
+</p></div>
+<div class="item"><p><b>
+Kheer</b> or payasam is an ancient Indian dessert, a creamy rice pudding that is made in several versions across the country. It is a common dish at numerous Indian ceremonies, festivals, and celebrations, although it can be consumed any time of year.
+
+Kheer is made by boiling rice, wheat, or tapioca with milk and sugar, and it can be additionally flavored with dried fruits, nuts, cardamom, and saffron. It is believed that the dessert originated 2000 years ago in the Lord Jagannath Temple in Orissa. 
+</p><img src="{%static 'images/kheer.jpeg'%}"></div>
+<div class="item"><img src="{%static 'images/rasmalai.jpeg'%}"><p>
+Like many other Bengali sweets with an Odisha connection, <b>Rasmalai</b> is quite a hit in India. It is made with small sugary balls of chhena soaked in malai and with a dash of cardamom. It is cooked in a concoction of sugar syrup, milk, saffron, pistachios and kheer. The small balls are immersed and cooked in simmering milk cream. The end product is akin to having tiny rasgullas soaked in a creamy, milky base. Needless to say, it is utterly delicious.
+</p></div>
+<div class="item"><p>
+Among the best Bengali sweets is the <b>Patishapta</b>, a festival favourite consisting of a delicious crepe that envelopes a mixture of coconut, cardamom, jaggery, khoya and dry fruits. This is a festival favourite and is especially enjoyed during seasonal and harvest-related festivals.
+</p><img src="{%static 'images/patishaptha.jpeg'%}"></div>
+<div class="item"><img src="{%static 'images/chmchm.jpeg'%}"><p>
+ <b>Chamcham</b> Made of flour, coconut, cream, sugar and saffron, this is a popular sweet in Bengal. The sweet is oval in shape and often has a brownish hue to it. It can also come in a variety of other vibrant colours. At times, as a garnish, the sweetmeat is coated in mawa or coconut flakes.
+</p></div>
+
+<div class="item"><p><b>
+Moa</b> is a delicious dry concoction made out of jaggery, puffed rice and ghee that is packed together into a round delicious ball. We recommend the seasonally available Joynagar-er Moa which is perhaps one of the tastiest Bengali sweets you will ever try. This specific type is also dotted with dry fruits and nuts. Moa can be made with 'muri' or 'Khoi'
+</p><img src="{%static 'images/moa.jpg'%}"></div>
+
+<div class="item"><img src="{%static 'images/kheerkdm.jpeg'%}"><p><b>
+Kadam</b> eating a small Rasagolla wrapped in a Sandesh and you might be able to come slightly close to the taste of a kheer Kadam. An exotic and completely Bengali sweet, this is made of small chhena spheres cocooned in khoya and powdered sugar. This Bengali mithai which is also known as Ras Kadam packs a double punch of taste that you should definitely try.
+</p></div>
+
+<div class="item"><p><b>
+Labong Latika</b> is one of the traditional sweets prepared by grandmothers on special occasions. Labong translates to clove in English and is used in abundance in this dish. Labong Latikais pocket made of all-purpose flour which is filled with sweetened khoya and a crusty pastry covering that is sealed with a piece of clove. The sweet is then fried and left to cool in a bowl of sugar syrup. It is super delicious and quite addictive!
+</p><img src="{%static 'images/lubong lotika.jpeg'%}"></div>
+
+<div class="item"><img src="{%static 'images/ladkeni.jpg'%}"><p><b>
+Ledikeni</b> or lady Kenny has been a popular Bengali dish since the British rule. The dish is named after Lady Canning, the wife of Charles Canning who was the Governor-General of India during the 19th century. The dish a light brown sweet ball made of Chenna which is fried and then soaked in sugar syrup. It tastes divine and is prepared on most auspicious days. 
+</p></div>
+
+<div class="item"><p><b>
+Sitabhog</b> is a popular dish from Bardhaman area of Bengal. Sitabhog is a very tasty and also a very interesting dessert to look at. It looks like pulao (a savoury dish) but tastes sweet. Many variants of this are available now but traditionally it was made of white rice and gulab jamun. Nowadays, people prefer using vermicelli instead of rice. It is then mixed white rice flour, cottage cheese and sugar.
+</p><img src="{%static 'images/sbhog.jpeg'%}"></div>
+
+<div class="item"><img src="{%static 'images/sandeshmishti.jpeg'%}"><p>
+A relatively dry Bengali Mithai, <b>Shondesh</b> can come in many variants. Made with Condensed milk Sugar and/or Jaggery this dessert can be moulded into different shapes and designs. We recommend having a Nolen Gurer Shondesh, which is made with a special and extra delicious kind of jaggery. Another variant which you might like is the Jol Bhara Sandesh. In the modern trend of fusion desserts, today you can also try out recipes such as chocolate Sandesh.
+  </p></div></div>  {% endif %}
+<br><br></div><div id="senti">
+    <select id="reviewDropdown">
+        <option value="" selected disabled>See what others think about this blog</option>
+        {%for review in reviews%}
+        <option>{{review.userreview}} 
+            {% if review.sentment == "p" %}&#128512;{% endif %}
+            {% if review.sentment == "n" %}&#128528;{% endif %}
+            {% if review.sentment == "b" %}&#128577;{% endif %}
+        </option>
+        {%endfor%}
+</div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<style>
+    body{
+        background-image: url("{% static 'images/bgmain.jpeg' %}");
+    }
+    #logo{
+        position: absolute;
+        left:110px;
+        top:0px;
+        height:220px;
+        width:1000px;
+        z-index: -1;
+        background-repeat: no-repeat;
+        background-image: url("{% static 'images/logo2.png' %}");
+    }
+    #logo{
+        left:350px;
+    }
+</style>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert("{{ message }}");</script>
+        {% endfor %}
+    {% endif %}
+    <p id="hed"><h3 id="hi">Hi {{admin}}</h3><div id="logo"></div><a id="addwish" style="left: 1100px; top:-70px; padding: 10px 10px 10px 10px;" href="{% url 'login' %}">LogOut</a></p><br><br>
+    <details><summary>Customer Details ({{cust.count}})</summary><br>
+    <div id="table"><table border="1px solid black">
+        <tr>
+        <th>USERNAME</th>
+        <th>EMAIL</th>
+        <th>CONTACT NO</th>
+        <th>PINCODE</th>
+        </tr>
+        {% for c in cust %}
+        <tr>
+            <td>{{c.username}}</td>
+            <td>{{c.email_id}}</td>
+            <td>{{c.contact_no}}</td>
+            <td>{{c.pincode}}</td>
+        </tr>
+        {% endfor %}
+    </table></div>
+    </details><br><br>
+    <details><summary>Order details ({{order.count}})</summary><br>
+        <form method="GET" action="{% url '_admin' %}">
+            Start Date: <input type="date" name="start_date">
+            End Date: <input type="date" name="end_date">
+            <input type="submit" value="Filter">
+        </form>
+        <div id="table"><table border="1px solid black">
+            <tr>
+            <th>DATE</th>
+            <th>USERNAME</th>
+            <th>ORDER LIST</th>
+            <th>TOTAL</th>
+            <th>STATUS</th>
+            <th>CHANGE STATUS</th>
+            </tr>
+            {% for o in order %}
+            <tr>
+                <td>{{o.date1}}</td>
+                <td>{{o.username.username}}</td>
+                <td>{{o.order_list}}</td>
+                <td>{{o.price}}</td>
+                <td>{{o.get_status_display}}</td>
+                <td><form method="POST" action="{% url 'update_status' id=o.id%}">{% csrf_token %}<select name="status"><option value="w">Ordered on the way</option><option value="c">Order Cancelled</option><option value="d">Order delivered</option></select></td>
+                <td><input type="submit" value="Update Status"></form></td>
+            </tr>
+            {% endfor %}
+        </table></div>
+    </details><br><br>
+    <details>
+        <summary>Product Details</summary>
+        <br>
+        <div id="table">
+            <table border="1px solid black">
+                <tr>
+                    <th>PRODUCT NAME</th>
+                    <th>IMAGE</th>
+                    <th>IMAGE URL</th>
+                    <th>PRICE</th>
+                    <th>CATEGORY</th>
+                    <th>AVAILABLE</th>
+                    <th>CHANGE AVAILABILITY</th>
+                    <th>UPDATE</th>
+                </tr>
+                {% for p in prod %}
+                <tr>
+                    <form id="updateForm_{{ p.p_name }}" method="POST" action="{% url 'update_product' pname=p.p_name %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <td>{{ p.p_name }}</td>
+                        <td><input type="file" class="urlnew" name="urlnew"><input type="text" class="url" value="{{p.img}}" name="url" hidden></td>
+                        <td>
+                            <input type="text" class="url" value="{{ p.img }}" name="url">
+                        </td>
+                        <td><input type="number" value="{{ p.rate }}" style="width: 50px;" name="rate"></td>
+                        <td>{{ p.category }}</td>
+                        <td>{{ p.available }}</td>
+                        <td>
+                            <select name="available">
+                                <option value="yes">Available</option>
+                                <option value="no">Not Available</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="submit" value="Update">
+                        </td>
+                    </form>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </details><br><br>
+    {% if sum is 0 %}
+    <details><summary>Feedback: No User has given Review yet</summary></details>
+    {% else %}
+    <details><summary>Feedback: Total {{cnt}} customers gave the total rating of {{avg}}</summary><br><div id="table">
+        <table border="1px solid black">
+            <tr>
+            <th>USERNAME</th>
+            <th>RATING</th>
+            <th>REVIEW</th>
+            </tr>
+            {% for c in cust %}
+            {% if c.rating is not 0 %}
+            <tr>
+                <td>{{c.username}}</td>
+                <td>{{c.rating}}</td>
+                <td>{{c.review}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table></div>
+    </details>
+    {% endif %}
+</body>
+</html>

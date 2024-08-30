@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<style>
+    body{
+        background-image: url("{% static 'images/bgmain.jpeg' %}");
+    }
+    #p{
+        height: 400px;
+        border: 0cap;
+        width:450px;
+    }
+</style>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            Message:{{message}}<br>
+        {% endfor %}
+    {% endif %}
+    <div id="head">
+        <a href="{%url 'home' %}" id="home"><img src="{% static 'images/homeicon.png'%}" id="home-img"></a>
+        <a href="{%url 'user' %}" id='hello'>Hello {{ user }}</a>
+        <a href="{% url 'myorders' %}" id="myorder" style="background-color: blueviolet;">My Order</a>
+        <a href="{%url 'goto_cw' cw='c'%}" id="cart">Cart</a>
+        <a href="{%url 'goto_cw' cw='w'%}" id="wishlist">Wishlist</a>
+        <a href="{%url 'addmoney'%}" id="money"><span id="mon">{{ money }}</span><img src="{% static 'images/rupee.png' %}" id="rupee"></a>
+    </div>
+    <div id="orders">
+        {% if orders %}
+        {% for order in orders %}
+        <div id="order"><b>On</b> {{order.date1}} {{order.time1}} <b>You Ordered:</b> 
+            {% for ol in order.order_list%}{{ol}}, {% endfor %}
+        <b>Total:</b> {{order.price}}Rs <b>Status:</b> {{order.get_status_display}}<br>
+        <a href="{% url 'showbill' id=order.id %}">Show bill</a></div><br><br>
+        {% endfor %}
+        {% else %}
+        <p>Items that you Order will be shown here</p>
+        {% endif %}
+    </div>
+    <br><br><center><img id="p" src="{%static 'images/ordlist.png'%}"></center>
+</body>
+</html>

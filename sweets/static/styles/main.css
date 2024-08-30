@@ -1,0 +1,530 @@
+body{
+    height: fit-content;
+    width: fit-content;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: cursive;
+}
+
+#user,#admin,#a,#u{
+    position: relative;
+    left:0px;
+    opacity: 1;
+}
+
+#login{
+    position: relative;
+    top:50px;
+    left:350px;
+    text-align: center;
+    font-size: larger;
+    width:500px;
+    height:400px;
+    padding-top: 10px;
+    color: maroon;
+}
+
+#register{
+    position: relative;
+    top:10px;
+    left:430px;
+    text-align: justify;
+    font-size: larger;
+    width:500px;
+    height:560px;
+    padding-top: 10px;
+    color: maroon;
+}
+
+#head{
+    position: fixed;
+    height:40px;
+    width:1200px;
+}
+
+#home,#hello,#myorder,#cart,#wishlist,#money{
+    position: absolute;
+    width:235px;
+    height:30px;
+    background-color: rgb(238,151,21);
+    color: rgb(106, 94, 28);
+    border: 1px solid black;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 10px;
+    z-index: +1;
+    top:-8px;
+    border-radius: 10px;
+}
+
+#home-img{
+    height: 20px;
+    width: 20px;
+    top:0px;
+    border: none;
+}
+#home{
+    left:-5px;
+    width:60px;
+}
+#hello{
+    left:60px;
+}
+#myorder{
+    left:300px;
+}
+#cart{
+    left:540px;
+}
+#wishlist{
+    left:780px;
+}
+#money{
+    left:1020px;
+    width:180px;
+}
+
+#mon{
+    position: relative;
+    top:-15px;
+    left:-5px;
+}
+#rupee{
+    position: relative;
+    top:-5px;
+    height: 30px;
+    width:30px;
+    border: none;
+}
+
+#planner,#calender,#notes,#journal,#ceramic,#combos,#cards,#wb{
+    position: absolute;
+    border: 1px solid black;
+    height:220px;
+    width:220px;
+    object-fit: cover;
+    z-index: -1;
+}
+
+#planner{
+    top:300px;
+    left:50px;
+}
+#calender{
+    top:300px;
+    left:350px;
+}
+#notes{
+    top:300px;
+    left:650px;
+}
+#journal{
+    top:300px;
+    left:950px;
+}
+#ceramic{
+    top:600px;
+    left:50px;
+}
+#combos{
+    top:600px;
+    left:350px;
+}
+#cards{
+    top:600px;
+    left:650px;
+}
+#wb{
+    top:600px;
+    left:950px;
+}
+
+#c1,#c2,#c3,#c4,#c5,#c6,#c7,#c8{
+    padding: 1px 10px 1px 10px;
+    border-radius: 7px;
+    background-color: white;
+    color: rgb(106, 94, 28);
+    position: absolute;
+    z-index: -1;
+}
+#c1,#c2,#c3,#c4{
+    top:530px;
+}
+#c5,#c6,#c7,#c8{
+    top:830px;
+}
+#c1,#c5{
+    left:120px
+}
+#c2,#c6{
+    left:420px;
+}
+#c3,#c7{
+    left:720px;
+}
+#c4,#c8{
+    left:1020px;
+}
+
+
+#radios label {
+	position: relative;
+}
+
+#user,#admin{
+    opacity: 1;
+}
+
+input[type="radio"] {
+	position: absolute;
+	opacity: 0;
+}
+
+input[type="radio"] + svg {
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+input + svg {
+	cursor: pointer;
+   height:50px;
+   width:100px;
+}
+
+input[class="super-happy"]:hover + svg,
+input[class="super-happy"]:checked + svg,
+input[class="super-happy"]:focus + svg {
+	fill: rgb(0, 109, 217);
+}
+
+input[class="happy"]:hover + svg,
+input[class="happy"]:checked + svg,
+input[class="happy"]:focus + svg {
+	fill: rgb(0, 204, 79);
+}
+
+input[class="neutral"]:hover + svg,
+input[class="neutral"]:checked + svg,
+input[class="neutral"]:focus + svg {
+	fill: rgb(232, 214, 0);
+}
+
+input[class="sad"]:hover + svg,
+input[class="sad"]:checked + svg,
+input[class="sad"]:focus + svg {
+	fill: rgb(229, 132, 0);
+}
+
+input[class="super-sad"]:hover + svg,
+input[class="super-sad"]:checked + svg,
+input[class="super-sad"]:focus + svg {
+	fill: rgb(239, 42, 16);
+}
+#feedback{
+    position:fixed;
+    border:5px solid maroon;
+    border-radius: 25px;
+    background-color: wheat;
+    height:min-content;
+    width:800px;
+    color: blue;
+    top:150px;
+    left:200px;
+    text-align: center;
+ }
+
+
+footer{
+    position: absolute;
+    width:1200px;
+    top:900px;
+    border:1px solid black;
+    text-align: center;
+    color: aliceblue;
+    background-color: maroon;
+    height: max-content;
+    font-size: larger;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+img{
+    position: relative;
+    height: 200px;
+    width: 200px;
+    z-index: -1;
+    top:12px;
+    border: 1px solid black;
+}
+
+.case{
+    display: inline-block;
+    padding-left: 60px ;
+    position: relative;
+    top:0px;
+    padding-top: 30px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+#o{
+    position: relative;
+    top:20px;
+    left:560px;
+    background-color: green;
+    color:greenyellow;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 5px 5px 5px;
+    text-decoration: none;
+    font-size: larger;
+}
+
+#addcart{
+    background-color: rgb(181, 181, 247);
+    color: rgb(106, 94, 28);
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px 5px 5px 5px;
+    font-family: cursive;
+}
+
+#addwish{
+    position: relative;
+    top:8px;
+    background-color: rgb(253, 142, 145);
+    color:beige;
+    text-decoration: none;
+    border: 2px solid black;
+    box-shadow: inset;
+    border-radius: 10px;
+    padding: 5px 5px 5px 5px;
+}
+
+#sidepanel{
+    position: fixed;
+    width:330px;
+    height:480px;
+    top:60px;
+    left:10px;
+}
+
+#planner1,#calender1,#notes1,#journal1,#ceramic1,#combos1,#candles1,#wb1{
+    position: absolute;
+    left:0px;
+    border: 1px solid black;
+    border-radius: 20px;
+    width:330px;
+    text-align: center;
+    padding-top: 19px;
+    padding-bottom: 19px;
+    font-size: 20px;
+    text-decoration: none;
+    background-image: linear-gradient(maroon,rgb(109, 59, 59));
+    color: white;
+}
+
+#planner1{
+    top:0px;
+}
+
+#calender1{
+    top:70px;
+}
+
+#notes1{
+    top:140px;
+}
+
+#journal1{
+    top:210px;
+}
+
+#ceramic1{
+    top:280px;
+}
+
+#combos1{
+    top:350px;
+}
+
+#candles1{
+    top:420px;
+}
+
+#wb1{
+    top:490px;
+}
+#cw{
+    position: absolute;
+    top:50px;
+    left:0px;
+    width:1200px;
+    z-index: -1;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+
+#num{
+    width:20px;
+    text-align: center;
+}
+
+ #feedback{
+    position: fixed;
+    top:150px;
+    left:200px;
+    text-align: center;
+
+}
+
+#form{
+    position: relative;
+    top:100px;
+}
+
+table{
+    width:fit-content;
+    font-size: 20px;
+}
+th{
+    text-align: center;
+    border-bottom: 1px solid rgb(88, 2, 2);
+    height:30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width:170px;
+}
+tr{
+    text-align: center;
+    border-right: 1px solid rgb(88, 2, 2);
+    height: 30px;
+}
+
+#h2{
+    position: absolute;
+    top:50px;
+    left:580px;
+    color: maroon;
+    font-size: 30px;
+}
+
+#product{
+    left:0px;
+    width:1200px;
+    position: relative;
+    top:150px;
+    color: maroon;
+}
+
+#products{
+    position: absolute;
+    top:150px;
+    left:350px;
+    width:800px;
+    z-index: -1;
+}
+
+#order{
+    position: relative;
+    top:100px;
+    width:1200px;
+    border: 1px solid black;
+    background-color: peachpuff;
+    font-size: larger;
+    color: maroon;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#logo1{
+    width: 500px;
+    border:0px;
+    height:200px;
+}
+
+#bill{
+    position: relative;
+    top:50px;
+    left:200px;
+    text-align: center;
+    font-size: larger;
+    width:800px;
+    height:480px;
+    padding-top: 10px;
+    color: rgb(88, 2, 2);
+}
+
+#form2{
+    position: relative;
+    top:60px;
+    left:450px;
+    width: 700px;
+    text-align: justify;
+    font-size: larger;
+    color: maroon;
+}
+
+#form1{
+    position: relative;
+    top:60px;
+    left:450px;
+    width: 700px;
+    text-align: center;
+    font-size: larger;
+    color: maroon;
+}
+summary{
+    position: relative;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: antiquewhite;
+    text-align: center;
+    border: 1px solid black;
+    font-size: x-large;
+    left:0px;
+    width:1150px;
+    border-radius: 15px;
+}
+details{
+    position: relative;
+    left: 20px;
+    color:maroon;
+    text-align: center;
+    top:20px;
+    background-color: antiquewhite;
+    border-radius: 15px;
+}
+#table{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+
+}
+#hi{
+    position: absolute;
+    left:20px;
+    top:30px;
+    border-radius: 10px;
+    background-color: plum;
+    color: blue;
+    border: 2px solid black;
+    width:100px;
+    border-spacing: 0.5px;
+    padding: 10px 10px 10px 10px;
+
+}
+#hed{
+    position: relative;
+    height:100px;
+    top:0px;
+}

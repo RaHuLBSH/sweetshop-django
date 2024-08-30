@@ -1,0 +1,64 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<style>
+    body{
+        background-image: url("{% static 'images/bgmain.jpeg' %}");
+    }
+    #logo1{
+        top:0px;
+        height:200px;
+    }
+</style>
+<body>
+    {% if not d %}
+    <div id="head">
+        <a href="{%url 'home' %}" id="home"><img src="{% static 'images/homeicon.png'%}" id="home-img"></a>
+        <a href="{%url 'user' %}" id='hello'>Hello {{ user }}</a>
+        <a href="{% url 'myorders' %}" id="myorder">My Order</a>
+        <a href="{%url 'goto_cw' cw='c'%}" id="cart">Cart</a>
+        <a href="{%url 'goto_cw' cw='w'%}" id="wishlist">Wishlist</a>
+        <<a href="{%url 'addmoney'%}" id="money"><span id="mon">{{ money }}</span><img src="{% static 'images/rupee.png' %}" id="rupee"></a>
+    </div>
+    {% endif %}
+    <div id="bill">
+        <img id="logo1" src="{% static 'images/logo2.png' %}">
+        <p><center><b>Name:</b> {{user}}<br><b>Order Date:</b> {{bill.date1}} {{bill.time1}}<br><b>Address: </b>{{userinfo.address}}</p>
+            <table>
+                <tr>
+                    <th>ITEM</th>
+                    <th>QUANTITY</th>
+                    <th>RATE</th>
+                    <th>TOTAL</th>
+                </tr>
+                {% for item,quan,rate,total in bills %}
+                <tr>
+                    <td>{{item}}</td>
+                    <td>{{quan}}</td>
+                    <td>{{rate}}</td>
+                    <td>{{total}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>CGST</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{cgst}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border-top: 1px solid brown;"><b>Amount:</b></td>
+                    <td style="border-top: 1px solid brown;">{{grandtotal}}</td>
+                </tr>
+            </table>
+    <br>
+    <b>Status: </b>{{bill.get_status_display}}<br>
+    {% if not d %}<a href="{%url 'download' id=bill.id %}">Download</a>{% endif %}
+    </div>
+</body>
+</html>

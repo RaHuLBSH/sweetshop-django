@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<style>
+    body{
+        background-image: url("{% static 'images/bgmain.jpeg' %}");
+    }
+    #p{
+        position: absolute;
+        left:930px;
+        top:100px;
+        width:300px;
+        border: 0cap;
+        z-index: -1;
+    }
+</style>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert("{{ message }}");</script>
+        {% endfor %}
+    {% endif %}
+    <div id="head">
+        <a href="{%url 'home' %}" id="home"><img src="{% static 'images/homeicon.png'%}" id="home-img"></a>
+        <a href="{%url 'user' %}" id='hello'>Hello {{ user }}</a>
+        <a href="{% url 'myorders' %}" id="myorder">My Order</a>
+        <a href="{%url 'goto_cw' cw='c'%}" id="cart">Cart</a>
+        <a href="{%url 'goto_cw' cw='w'%}" id="wishlist" style="background-color: blueviolet;">Wishlist</a>
+        <a href="{%url 'addmoney'%}" id="money"><span id="mon">{{ money }}</span><img src="{% static 'images/rupee.png' %}" id="rupee"></a>
+    </div>
+    <h2 id="h2">WISHLIST</h2>
+    <img id="p" src="{%static 'images/wishpic.png'%}">
+    <div id="product">
+    {% if items %}
+            {% for item in items %}
+                <div class="case">
+                    <img src="{{item.p_id.img.url}}" class="img">
+                    <p> <form method="POST" action="{%url 'add_cw' pname=item.p_id.p_name%}">
+                            {% csrf_token %}<center>{{item.p_id.p_name}} {{ item.p_id.rate }}Rs<br>
+                        Quantity<input type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" value="<">
+                        <input type="number" id="num" value="1" min="1" name="num">
+                        <input type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" value=">"><br>
+                        <input type="submit" value="Add to Cart" id="addcart"><br></form><a id="addwish" href="{%url 'remove_cw' pname=item.p_id.p_name cw='w'%}">Remove from Wishlist</a></center></p>
+                </div>
+            {% endfor %}
+        {% else %}
+        No products found
+        {% endif %}
+    </div>
+</body>
+</html>

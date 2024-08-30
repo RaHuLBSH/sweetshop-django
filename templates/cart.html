@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<style>
+    body{
+        background-image: url("{% static 'images/bgmain.jpeg' %}");
+    }
+    #p{
+        position: absolute;
+        left:930px;
+        top:100px;
+        width:300px;
+        border: 0cap;
+        z-index: -1;
+    }
+</style>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <script>alert("{{ message }}");</script>
+        {% endfor %}
+    {% endif %}
+    <div id="head">
+        <a href="{%url 'home' %}" id="home"><img src="{% static 'images/homeicon.png'%}" id="home-img"></a>
+        <a href="{%url 'user' %}" id='hello'>Hello {{ user }}</a>
+        <a href="{% url 'myorders' %}" id="myorder">My Order</a>
+        <a href="{%url 'goto_cw' cw='c'%}" id="cart" style="background-color: blueviolet;">Cart</a>
+        <a href="{%url 'goto_cw' cw='w'%}" id="wishlist">Wishlist</a>
+        <a href="{%url 'addmoney'%}" id="money"><span id="mon">{{ money }}</span><img src="{% static 'images/rupee.png' %}" id="rupee"></a>
+    </div>
+    <h2 id="h2">CART</h2>
+    <img id="p" src="{%static 'images/cartpic.png'%}">
+    <div id="product">
+        {% if items %}
+            {% for item in items %}
+                <div class="case">
+                    <img src="{{item.p_id.img.url}}" class="img">
+                    <form method="POST" action="{%url 'add_cw' pname=item.p_id.p_name%}">
+                        {% csrf_token %}
+                    <p><center>{{item.p_id.p_name}}: {{ item.p_id.rate }}Rs<br>
+                    Quantity<input type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" value="<">
+                    <input type="number" id="num" value="{{item.quantity}}" min="1" name="num">
+                    <input type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" value=">"><br>
+                    <input type="submit" value="Update Cart" id="addcart" style="font-size: large;"><br><a class="aw" id="addwish" href="{%url 'remove_cw' pname=item.p_id.p_name cw='c'%}">Remove from Cart</a></center></p></form>
+                </div>
+            {% endfor %}
+            <br><a href="{%url 'order'%}" id="o" style="top:30px;">Place Order</a></div>
+        {% else %}
+        No products found
+        {% endif %}
+</body>
+</html>

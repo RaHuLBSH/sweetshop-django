@@ -1,0 +1,178 @@
+{% load static %}
+{% static 'images' as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gifteria Home</title>
+</head>
+<script src="//code.tidio.co/7a9jnw3r3gei5d5zcaetbyv5weldqzzv.js" async></script>
+<script>
+    function category(cat){
+        location = "http://127.0.0.1:8000/homepage/"+cat;
+    }
+    function toggle(id){
+        var e = document.getElementById(id);
+               if(e.style.display == 'block')
+                  e.style.display = 'none';
+               else
+                  e.style.display = 'block';
+        }
+        
+        function rate(id){
+           var x=document.getElementById(id).value;
+           if(x==1){
+              var y='Super-Sad';
+           }
+           if(x==2){
+              var y='Sad';
+           }
+           if(x==3){
+              var y='Neutral';
+           }
+           if(x==4){
+              var y='Happy';
+           }
+           if(x==5){
+              var y='Super-Happy';
+           }
+           document.getElementById('val').innerHTML=y;
+        }
+</script>
+<link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<style>
+   body{
+      background-image: url("{% static 'images/bgmain.jpeg' %}");
+   }
+   #home,#hello,#myorder,#cart,#wishlist,#money{
+      background-color: rgb(238,151,21);
+      color: rgb(106, 94, 28);
+  }
+   #logo{
+      position: absolute;
+      left:350px;
+      height:200px;
+      top:100px;
+      width:500px;
+      z-index:-1;
+      background-image: url("{% static 'images/logo2.png' %}");
+  }
+   
+   #wb{
+      position: absolute;
+    border: 1px solid black;
+    height:220px;
+    width:220px;
+    object-fit: cover;
+    z-index: -1;
+    top:600px;
+    left:950px;
+   }
+   #c8{
+      padding: 1px 10px 1px 10px;
+    border-radius: 7px;
+    background-color: white;
+    color: rgb(106, 94, 28);
+    position: absolute;
+    z-index: -1;
+    top:830px;
+    left:1020px;
+   }
+   #ceramic{
+      left:50px;
+   }
+   #combos{
+      left:350px;
+   }
+   #cards{
+      left:650px;
+   }
+   #c5{
+      left:100px;
+   }
+   #c6{
+      left:400px;
+   }
+   #c7{
+      left:700px;
+   }
+   #menupic{
+      position: absolute;
+      left:70px;
+      top:90px;
+      border: 0cap;
+      width: 250px;
+   }
+</style>
+<body>
+   {% if messages %}
+        {% for message in messages %}
+            <script>alert("{{ message }}");</script>
+        {% endfor %}
+    {% endif %}
+    <div id="head">
+      <a href="{%url 'home' %}" id="home" style="background-color: rgb(114, 64, 252);"><img src="{% static 'images/homeicon.png'%}" id="home-img"></a>
+      <a href="{%url 'user' %}" id='hello'>Hello {{ user }}</a>
+      <a href="{% url 'myorders' %}" id="myorder">My Order</a>
+      <a href="{%url 'goto_cw' cw='c'%}" id="cart">Cart</a>
+      <a href="{%url 'goto_cw' cw='w'%}" id="wishlist">Wishlist</a>
+      <a href="{%url 'addmoney'%}" id="money"><span id="mon">{{ money }}</span><img src="{% static 'images/rupee.png' %}" id="rupee"></a>
+    </div>
+    <img id="menupic" src="{%static 'images/menupic.png'%}">
+    <div id="logo"></div>
+    
+        <img src="{% static 'images/gujrat.jpg' %}" id="planner" onclick="category('Gujarat')"/><span id="c1">Gujarat</span>
+        <img src="{% static 'images/kerala.jpg' %}" id="calender" onclick="category('Kerala')"><span id="c2">Kerala</span>
+        <img src="{% static 'images/krnataka.jpg' %}" id="notes" onclick="category('Karnataka')"><span id="c3">Karnataka</span>
+        <img src="{% static 'images/maharashtra.jpeg' %}" id="journal" onclick="category('Maharashtra')"><span id="c4">Maharashtra</span>
+        <img src="{% static 'images/mp.jpg' %}" id="ceramic" onclick="category('Madhya Pradesh')"><span id="c5">Madhya Pradesh</span>
+        <img src="{% static 'images/rajasthan.jpg' %}" id="combos" onclick="category('Rajasthan')"><span id="c6">Rajasthan</span>
+        <img src="{% static 'images/up.jpg' %}" id="cards" onclick="category('Uttar Pradesh')"><span id="c7">Uttar Pradesh</span>
+        <img src="{% static 'images/westbgl.jpg' %}" id="wb" onclick="category('West Bengal')"><span id="c8">West Bengal</span>
+    
+    <footer><b>Address:</b> Telephone Colony Malkapur<br><b>Contact Us:</b> 7218111896<br>Leave us a <span onclick="toggle('feedback')" style="text-decoration: underline;">Feedback</span></footer>
+    <form id="feedback" method="post" action="{% url 'add_review' %}" hidden>{% csrf_token %}
+        <h2 style="color: maroon;">RATE US</h2>
+        <span class="rating-form">
+       
+           <label for="super-happy">
+               <input type="radio" name="rating" class="super-happy" id="super-happy" value="5" onclick="rate('super-happy');" />
+               <svg viewBox="0 0 24 24"><path d="M12,17.5C14.33,17.5 16.3,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5M8.5,11A1.5,1.5 0 0,0 10,9.5A1.5,1.5 0 0,0 8.5,8A1.5,1.5 0 0,0 7,9.5A1.5,1.5 0 0,0 8.5,11M15.5,11A1.5,1.5 0 0,0 17,9.5A1.5,1.5 0 0,0 15.5,8A1.5,1.5 0 0,0 14,9.5A1.5,1.5 0 0,0 15.5,11M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2C6.47,2 2,6.5 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>
+              </label>
+     
+           <label for="happy">
+               <input type="radio" name="rating" class="happy" id="happy" value="4" onclick="rate('happy');"/>
+               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" viewBox="0 0 24 24"><path d="M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M10,9.5C10,10.3 9.3,11 8.5,11C7.7,11 7,10.3 7,9.5C7,8.7 7.7,8 8.5,8C9.3,8 10,8.7 10,9.5M17,9.5C17,10.3 16.3,11 15.5,11C14.7,11 14,10.3 14,9.5C14,8.7 14.7,8 15.5,8C16.3,8 17,8.7 17,9.5M12,17.23C10.25,17.23 8.71,16.5 7.81,15.42L9.23,14C9.68,14.72 10.75,15.23 12,15.23C13.25,15.23 14.32,14.72 14.77,14L16.19,15.42C15.29,16.5 13.75,17.23 12,17.23Z" /></svg>
+               
+              </label>
+     
+           <label for="neutral">
+               <input type="radio" name="rating" class="neutral" id="neutral" value="3" onclick="rate('neutral');" />
+               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" viewBox="0 0 24 24"><path d="M8.5,11A1.5,1.5 0 0,1 7,9.5A1.5,1.5 0 0,1 8.5,8A1.5,1.5 0 0,1 10,9.5A1.5,1.5 0 0,1 8.5,11M15.5,11A1.5,1.5 0 0,1 14,9.5A1.5,1.5 0 0,1 15.5,8A1.5,1.5 0 0,1 17,9.5A1.5,1.5 0 0,1 15.5,11M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M9,14H15A1,1 0 0,1 16,15A1,1 0 0,1 15,16H9A1,1 0 0,1 8,15A1,1 0 0,1 9,14Z" /></svg>
+              
+              </label>
+     
+           <label for="sad">
+               <input type="radio" name="rating" class="sad" id="sad" value="2" onclick="rate('sad');" />
+               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" height="100%" viewBox="0 0 24 24"><path d="M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M15.5,8C16.3,8 17,8.7 17,9.5C17,10.3 16.3,11 15.5,11C14.7,11 14,10.3 14,9.5C14,8.7 14.7,8 15.5,8M10,9.5C10,10.3 9.3,11 8.5,11C7.7,11 7,10.3 7,9.5C7,8.7 7.7,8 8.5,8C9.3,8 10,8.7 10,9.5M12,14C13.75,14 15.29,14.72 16.19,15.81L14.77,17.23C14.32,16.5 13.25,16 12,16C10.75,16 9.68,16.5 9.23,17.23L7.81,15.81C8.71,14.72 10.25,14 12,14Z" /></svg>
+              
+              </label>
+     
+           <label for="super-sad">
+               <input type="radio" name="rating" class="super-sad" id="super-sad" value="1" onclick="rate('super-sad');" />
+               <svg viewBox="0 0 24 24"><path d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12M12,14C9.67,14 7.69,15.46 6.89,17.5H17.11C16.31,15.46 14.33,14 12,14Z" /></svg>
+           
+              </label>
+     
+              </span>
+              <h3 style="word-spacing: 90px; color:maroon;"> 5            4              3            2            1 </h3>
+              <span id="val" style="color: maroon;"></span>
+        <h4 style="color:maroon;">Write a review (Optional)</h4>
+        <textarea rows="4" cols="60" id="review" name="review"></textarea><br>
+        <input type="submit" value="Send" name="sub" id="send" style="font-family: cursive;">
+        <input type="button" onclick="toggle('feedback');" value="Later" id="later" style="font-family: cursive;">
+     </form>
+</body>
+</html>

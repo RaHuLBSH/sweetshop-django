@@ -1,0 +1,67 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<style>
+    body{
+        background-image: url("{% static 'images/bgmain.jpeg' %}");
+    }
+    #p{
+        position: absolute;
+        top:100px;
+        border: 0cap;
+        left:50px;
+        width:300px;
+    }
+</style>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            Message:{{message}}<br>
+        {% endfor %}
+    {% endif %}
+    <div id="head">
+        <a href="{%url 'home' %}" id="home"><img src="{% static 'images/homeicon.png'%}" id="home-img"></a>
+        <a href="{%url 'user' %}" id='hello'>Hello {{ user }}</a>
+        <a href="{% url 'myorders' %}" id="myorder">My Order</a>
+        <a href="{%url 'goto_cw' cw='c'%}" id="cart">Cart</a>
+        <a href="{%url 'goto_cw' cw='w'%}" id="wishlist">Wishlist</a>
+        <a href="{%url 'addmoney'%}" id="money"><span id="mon">{{ money }}</span><img src="{% static 'images/rupee.png' %}" id="rupee"></a>
+    </div>
+    <img id="p" src="{%static 'images/confbill.png'%}">
+    <form method="POST" action="{% url 'placeorder' gtotal=grandtotal %}" id="form1" style="left:300px;">
+        {% csrf_token %}
+        <img id="logo1" src="{% static 'images/logo2.png' %}">
+        <p style="font-size: 20px;"><b>Name:</b> {{user}}<br><b>Date:</b> {{date}}</p>
+        <table>
+            <tr>
+                <th>ITEM</th>
+                <th>QUANTITY</th>
+                <th>RATE</th>
+                <th>TOTAL</th>
+            </tr>
+            {% for item,total in itemtotal %}
+            <tr>
+                <td>{{item.p_id.p_name}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.p_id.rate}}</td>
+                <td>{{total}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>CGST</td>
+                <td></td>
+                <td></td>
+                <td>{{cgst}}</td>
+            </tr>
+        </table>
+        <p><b>Address:</b> {{address}}</p>
+        <input id="addcart" type="submit" value="Pay Rs {{grandtotal}}/-" style="font-size:large;">
+    </form>
+</body>
+</html>

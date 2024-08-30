@@ -1,0 +1,128 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Payment Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("{% static 'images/billbg.jpeg' %}");;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 400px;
+            background-color: lightblue;
+            font-style: italic;
+            position: absolute;
+            left:420px;
+            top:200px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .payment-option input[type="radio"] {
+            margin-right: 10px;
+        }
+        img{
+            position: absolute;
+            top:50px;
+            left:10px;
+            height:250px;
+            width:300px;
+            border-radius: 160px;
+        }
+    </style>
+</head>
+<body>
+    <img src="{%static 'images/obill.jpeg'%}">
+    <div class="container">
+        <h1>Wallet Credit</h1>
+        <p>Please select a payment method:</p>
+
+        <div class="payment-options">
+            <div class="payment-option">
+                <input type="radio" name="payment" id="creditCard" value="creditCard">
+                <label for="creditCard">Credit Card</label>
+            </div>
+
+            <div class="payment-option">
+                <input type="radio" name="payment" id="paypal" value="paypal">
+                <label for="paypal">Fi Card</label>
+            </div>
+
+            <div class="payment-option">
+                <input type="radio" name="payment" id="bitcoin" value="bitcoin">
+                <label for="bitcoin">UPI</label>
+            </div>
+        </div>
+
+        <div id="creditCardForm" style="display: none;">
+            <h2>Credit Card Details</h2>
+            <form method="post" action="{%url 'addm'%}">{%csrf_token%}
+            <input type="text" placeholder="Name on Card">
+            <input type="number" placeholder="Card Number">
+            <input type="number" placeholder="Expiry Date">
+            <input type="number" placeholder="CVV">
+            <input type="number" placeholder="Amount" name="money"><br>
+            <input type="submit" value="Pay"></form>
+        </div>
+
+        <div id="paypalForm" style="display: none;">
+            <h2>Fi Card Details</h2>
+            <form method="post" action="{%url 'addm'%}">{%csrf_token%}
+            <input type="text" placeholder="UPI ID">
+            <input type="number" placeholder="Phone no">
+            <input type="number" placeholder="Amount" name="money"><br>
+            <input type="submit" value="Pay"></form>
+        </div>
+
+        <div id="bitcoinForm" style="display: none;">
+            <h2>UPI Details</h2>
+            <form method="post" action="{%url 'addm'%}">{%csrf_token%}
+            <input type="text" placeholder="UPI ID">
+            <input type="number" placeholder="Amount" name="money"><br>
+            <input type="submit" value="Pay"></form>
+        </div>
+
+    </div>
+
+    <script>
+        const paymentOptions = document.querySelectorAll('input[type="radio"]');
+        paymentOptions.forEach(option => {
+            option.addEventListener('change', () => {
+                const selectedPayment = document.querySelector('input[type="radio"]:checked').value;
+                document.getElementById('creditCardForm').style.display = 'none';
+                document.getElementById('paypalForm').style.display = 'none';
+                document.getElementById('bitcoinForm').style.display = 'none';
+                document.getElementById(selectedPayment + 'Form').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
